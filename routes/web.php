@@ -3,8 +3,10 @@
 use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
+use App\Models\Article;
 use App\Models\Mahasiswa;
 use App\Models\Mahasiswa_MataKuliah;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,3 +24,5 @@ Route::get('/mahasiswa/nilai/{nim}', function ($nim) {
 });
 
 Route::resource('article', ArticleController::class);
+
+Route::get('hello', [ArticleController::class, "cetak_pdf"]);
