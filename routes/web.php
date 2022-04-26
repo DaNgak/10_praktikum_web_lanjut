@@ -26,3 +26,5 @@ Route::get('/mahasiswa/nilai/{nim}', function ($nim) {
 Route::resource('article', ArticleController::class);
 
 Route::get('hello', [ArticleController::class, "cetak_pdf"]);
+
+Route::get('/mahasiswa/cetak_pdf/{id}', [MahasiswaController::class, 'cetak_pdf']);

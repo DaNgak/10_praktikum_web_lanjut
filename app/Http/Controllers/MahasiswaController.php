@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
+use App\Models\Mahasiswa_MataKuliah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use MahasiswaMatakuliah;
+use PDF;
 
 class MahasiswaController extends Controller
 {
@@ -56,6 +59,11 @@ class MahasiswaController extends Controller
             'Tanggal' => 'required',
         ]);
 
+        $foto = "";
+        if ($request -> file('foto_mahasiswa')){
+            $foto = $request->file('foto_mahasiswa')->store('images', 'public');
+        }
+
         //fungsi eloquent untuk menambah data
         // Mahasiswa::create($request->all());
 
@@ -63,6 +71,7 @@ class MahasiswaController extends Controller
         $mahasiswa->nim = $request->get("Nim");
         $mahasiswa->nama = $request->get("Nama");
         // $mahasiswa->kelas_id = $mahasiswa->kelas()->associate(Kelas::find($request->get("Kelas")));
+        $mahasiswa->foto_mahasiswa = $foto;
         $mahasiswa->kelas_id = $request->get("Kelas");
         $mahasiswa->jurusan = $request->get("Jurusan");
         $mahasiswa->email = $request->get("Email");
@@ -122,11 +131,16 @@ class MahasiswaController extends Controller
             'Tanggal_Lahir' => 'required',
         ]);
 
+        if ($request -> file('foto_mahasiswa')){
+            $foto = $request->file('foto_mahasiswa')->store('images', 'public');
+        }
+
         //fungsi eloquent untuk mengupdate data inputan kita
         // Mahasiswa::find($Nim)->update($request->all());
         $mahasiswa = Mahasiswa::with("kelas")->where('nim', $Nim)->first();
         $mahasiswa->nim = $request->get("Nim");
         $mahasiswa->nama = $request->get("Nama");
+        $mahasiswa->foto_mahasiswa = $foto;
         $mahasiswa->kelas()->associate(Kelas::find($request->get("Kelas")));
         $mahasiswa->jurusan = $request->get("Jurusan");
         $mahasiswa->save();
@@ -148,5 +162,13 @@ class MahasiswaController extends Controller
         Mahasiswa::find($Nim)->delete();
         return redirect()->route('mahasiswa.index')
         -> with('success', 'Mahasiswa Berhasil Dihapus');
+    }
+
+    public function cetak_pdf($id)
+    {
+        $daftar = Mahasiswa_MataKuliah::where("mahasiswa_id", $id)->get();
+        $daftar->mahasiswa = Mahasiswa::with('kelas')->where('nim', $id)->first();
+        $pdf = PDF::loadview('mahasiswa.pdf', compact('daftar'));
+        return $pdf->stream();
     }
 }

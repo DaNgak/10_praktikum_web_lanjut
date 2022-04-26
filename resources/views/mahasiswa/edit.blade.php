@@ -6,7 +6,7 @@
     <div class="row justify-content-center align-items-center">
         <div class="card" style="width: 24rem;">
             <div class="card-header">
-            Edit Mahasiswa
+                Edit Mahasiswa
             </div>
             <div class="card-body">
                 @if ($errors->any())
@@ -19,7 +19,7 @@
                     </ul>
                 </div>
             @endif
-            <form method="post" action="{{ route('mahasiswa.update', $Mahasiswa->nim) }}" id="myForm">
+            <form method="post" action="{{ route('mahasiswa.update', $Mahasiswa->nim) }}" id="myForm" enctype="multipart/form-data">
             @csrf
             @method('PUT')
                 <div class="form-group">
@@ -29,6 +29,10 @@
                 <div class="form-group">
                     <label for="Nama">Nama</label>
                     <input type="text" name="Nama" class="form-control" id="Nama" value="{{ $Mahasiswa->nama }}" aria-describedby="Nama" >
+                </div>
+                <div class="form-group">
+                    <label for="foto_mahasiswa">Foto</label>
+                    <input type="file" name="foto_mahasiswa" value="{{ $Mahasiswa->foto_mahasiswa }}" accept = 'image/jpeg , image/jpg, image/gif, image/png' class="form-control-file" id="foto_mahasiswa">
                 </div>
                 <div class="form-group">
                     <label for="Kelas">Kelas</label>

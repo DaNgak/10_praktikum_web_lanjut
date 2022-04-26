@@ -37,6 +37,7 @@
         <tr>
             <th>Nim</th>
             <th>Nama</th>
+            <th>Foto</th>
             <th>Kelas</th>
             <th>Jurusan</th>
             <th>Email</th>
@@ -48,6 +49,7 @@
         <tr>
             <td>{{ $mhs ->nim }}</td>
             <td>{{ $mhs ->nama }}</td>
+            <td><img src="{{ asset("storage/" . $mhs ->foto_mahasiswa) }}" alt="" width="100" height="100"></td>
             <td>{{ $mhs->kelas->nama_kelas }}</td>
             <td>{{ $mhs ->jurusan }}</td>
             <td>{{ $mhs ->email }}</td>

@@ -18,6 +18,7 @@ class CreateMahasiswaTable extends Migration
             $table->string('nim', 10)->primary();
             $table->string('nama', 25)->index();
             $table->string('kelas', 5);
+            $table->string('foto_mahasiswa')->nullable();
             $table->string('jurusan', 35);
             $table->string('email', 100);
             $table->string('alamat', 100);

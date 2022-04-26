@@ -27,9 +27,12 @@
             <tr>
                 <td>{{ $matkul->matakuliah->nama_matkul }}</td>
                 <td>{{ $matkul->matakuliah->sks }}</td>
-                <td>{{ $matkul->matakuliah->jam }}</td>
                 <td>{{ $matkul->matakuliah->semester }}</td>
+                <td>{{ $matkul->nilai }}</td>
             </tr>
         @endforeach
     </table>
+    <div class="d-flex justify-content-center my-5">
+        <a href="{{ url('/mahasiswa/cetak_pdf/'. $matkul->id) }}" class="btn btn-danger">Export  PDF</a>
+    </div>
 @endsection
