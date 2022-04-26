@@ -33,6 +33,6 @@
         @endforeach
     </table>
     <div class="d-flex justify-content-center my-5">
-        <a href="{{ url('/mahasiswa/cetak_pdf/'. $matkul->id) }}" class="btn btn-danger">Export  PDF</a>
+        <a href="{{ url('/mahasiswa/cetak_pdf/'. $daftar->mahasiswa->nim) }}" class="btn btn-danger">Export  PDF</a>
     </div>
 @endsection
